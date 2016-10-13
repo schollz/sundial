@@ -14,6 +14,7 @@ double computeSolarAngle(double,double,int);
 double modD(double,double);
 double sunrise(double,double);
 double sunset(double,double);
+double getTime();
 
 double const PI = 3.14159265359;
 double const JEPOCH = 2451545.0;
@@ -77,7 +78,7 @@ double modD (double a, double b)
 }
 
 double computeSolarAngle(double latitude, double longitude, int sunrise) {
-  double timet = (double)time(NULL);
+  double timet = getTime();
   timet = timet - modD(timet,86400)-OFFSET;
   double ma = mod360(357.5291 + 0.98560028*(jstar(longitude,timet)-JEPOCH));
   double center = 1.9148*sinD(ma) + 0.02*sinD(2.0*ma) + 0.0003*sinD(3.0*ma);
@@ -87,12 +88,12 @@ double computeSolarAngle(double latitude, double longitude, int sunrise) {
   double hourAngleInDays = acosD((sinD(-0.83)-sinD(latitude)*sinD(declination))/(cosD(latitude)*cosD(declination))) / 360.0;
   if (sunrise == 1) {
     double sunriseTime = goTime(solarNoon - hourAngleInDays);
-    if (sunriseTime < (double)time(NULL)) {
+    if (sunriseTime < getTime()) {
       sunriseTime = sunriseTime + 24 * 3600;
     }
-    return sunriseTime+OFFSET;
+    return sunriseTime;
   } else {
-    return goTime(solarNoon + hourAngleInDays)+OFFSET;
+    return goTime(solarNoon + hourAngleInDays);
   }
 }
 
@@ -102,4 +103,8 @@ double sunrise(double latitude, double longitude)  {
 
 double sunset(double latitude, double longitude)  {
   return computeSolarAngle(latitude,longitude,0);
+}
+
+double getTime() {
+  return (double)time(NULL);
 }
