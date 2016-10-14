@@ -24,21 +24,6 @@ double OFFSET; // EST TIME ZONE
 double LAT;
 double LONG;
 
-int main(int argc, char **argv) {
-  if (argc == 4) {
-    LAT = strtod(argv[1], NULL);
-    LONG = strtod(argv[2], NULL);
-    OFFSET = strtod(argv[3], NULL)*60*60;
-    printf("%2.3f, %2.3f\n",LAT,LONG);
-    printf("Currenttime: %2.0f\n",getTime());
-    printf("Sunrise: %2.0f\n",sunrise(LAT,LONG)); // long, lat for Durham, NC
-    printf("Sunset: %2.0f\n",sunset(LAT,LONG));
-  } else {
-    printf("usage: sundial LAT LONG TIMEZONE\n\nexample: sundial 35.994 -78.8986 -4    # Durham, NC\n");
-  }
-  return EXIT_SUCCESS;
-}
-
 double mod360(double x)  {
     return x - 360.0*floor(x/360.0);
 }
@@ -118,4 +103,20 @@ double sunset(double latitude, double longitude)  {
 
 double getTime() {
     return (double)time(NULL);
+}
+
+
+int main(int argc, char **argv) {
+  if (argc == 4) {
+    LAT = strtod(argv[1], NULL);
+    LONG = strtod(argv[2], NULL);
+    OFFSET = strtod(argv[3], NULL)*60*60;
+    printf("%2.3f, %2.3f\n",LAT,LONG);
+    printf("Currenttime: %2.0f\n",getTime());
+    printf("Sunrise: %2.0f\n",sunrise(LAT,LONG)); // long, lat for Durham, NC
+    printf("Sunset: %2.0f\n",sunset(LAT,LONG));
+  } else {
+    printf("usage: sundial LAT LONG TIMEZONE\n\nexample: sundial 35.994 -78.8986 -4    # Durham, NC\n");
+  }
+  return EXIT_SUCCESS;
 }
