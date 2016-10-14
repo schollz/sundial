@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 double mod360(double);
 double acosD(double);
@@ -22,7 +23,7 @@ double const UEPOCH = 946728000.0;
 double const OFFSET = -4*60*60; // EST TIME ZONE
 
 int main(int argc, char **argv) {
-    printf("Currenttime: %2.0f\n",(double)time(NULL));
+    printf("Currenttime: %2.0f\n",getTime());
     printf("Sunrise: %2.0f\n",sunrise(35.994,-78.8986)); // long, lat for Durham, NC
     printf("Sunset: %2.0f\n",sunset(35.994,-78.8986));
     return EXIT_SUCCESS;
