@@ -7,6 +7,10 @@ Compile using
 ```
 $ gcc -Wall -o sundial -Wall main.c sundial.c -lm
 ```
+or with **`make`**:
+```
+$ make
+```
 
 Then run 
 
